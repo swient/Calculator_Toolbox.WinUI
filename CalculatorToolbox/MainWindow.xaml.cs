@@ -13,9 +13,6 @@ using Microsoft.UI.Xaml.Navigation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
-
 namespace CalculatorToolbox
 {
     /// <summary>
@@ -26,6 +23,38 @@ namespace CalculatorToolbox
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void BtnMenu_Click(object sender, RoutedEventArgs e)
+        {
+            MenuPanel.Visibility = MenuPanel.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
+        }
+
+        private void BtnCalculator_Click(object sender, RoutedEventArgs e)
+        {
+            BtnCalculator.Background = new SolidColorBrush(Microsoft.UI.Colors.LightGray);
+            BtnCurrencyConverter.Background = new SolidColorBrush(Microsoft.UI.Colors.WhiteSmoke);
+            BtnUnitConverter.Background = new SolidColorBrush(Microsoft.UI.Colors.WhiteSmoke);
+            MenuPanel.Visibility = Visibility.Collapsed;
+            CalculatorViewHost.Visibility = Visibility.Visible;
+        }
+
+        private void BtnCurrencyConverter_Click(object sender, RoutedEventArgs e)
+        {
+            BtnCalculator.Background = new SolidColorBrush(Microsoft.UI.Colors.WhiteSmoke);
+            BtnCurrencyConverter.Background = new SolidColorBrush(Microsoft.UI.Colors.LightGray);
+            BtnUnitConverter.Background = new SolidColorBrush(Microsoft.UI.Colors.WhiteSmoke);
+            MenuPanel.Visibility = Visibility.Collapsed;
+            CalculatorViewHost.Visibility = Visibility.Collapsed;
+        }
+
+        private void BtnUnitConverter_Click(object sender, RoutedEventArgs e)
+        {
+            BtnCalculator.Background = new SolidColorBrush(Microsoft.UI.Colors.WhiteSmoke);
+            BtnCurrencyConverter.Background = new SolidColorBrush(Microsoft.UI.Colors.WhiteSmoke);
+            BtnUnitConverter.Background = new SolidColorBrush(Microsoft.UI.Colors.LightGray);
+            MenuPanel.Visibility = Visibility.Collapsed;
+            CalculatorViewHost.Visibility = Visibility.Collapsed;
         }
     }
 }
