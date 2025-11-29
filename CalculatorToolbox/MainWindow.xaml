@@ -5,67 +5,56 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="using:CalculatorToolbox"
-    mc:Ignorable="d"
-    Title="計算機">
-
+    xmlns:conv="using:CalculatorToolbox.Converters"
+    mc:Ignorable="d">
     <Grid>
+        <Grid.Resources>
+            <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+            <conv:PageToVisibilityConverter x:Key="PageToVisibilityConverter"/>
+        </Grid.Resources>
         <!-- CalculatorView 顯示 -->
         <local:CalculatorView x:Name="CalculatorViewHost"
-                      Visibility="Visible"
-                      Margin="0,0,0,0"/>
-
+                              Visibility="{Binding CurrentPage, Converter={StaticResource PageToVisibilityConverter}, ConverterParameter=Calculator}"
+                              Margin="0"/>
         <!-- 左側選單面板 -->
         <Grid x:Name="MenuPanel"
               Width="349"
               Background="WhiteSmoke"
-              Visibility="Collapsed"
+              Visibility="{Binding IsMenuVisible, Converter={StaticResource BoolToVisibilityConverter}}"
               VerticalAlignment="Stretch"
-              HorizontalAlignment="Left"
-              BorderBrush="LightGray"
-              BorderThickness="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <StackPanel VerticalAlignment="Top" Margin="0">
-                <Button x:Name="BtnCalculator"
-                        Content="計算機"
+              HorizontalAlignment="Left">
+            <StackPanel>
+                <Border Height="70" Background="Transparent"/>
+                <Button Content="計算機"
                         FontFamily="Microsoft JhengHei UI"
                         FontSize="16"
-                        HorizontalContentAlignment="Left"
-                        Padding="20,0,0,0"
-                        Margin="0,70,0,0"
+                        Background="{Binding CalculatorBtnBg}"
+                        HorizontalAlignment="Stretch"
+                        Margin="2"
                         Height="64"
-                        Background="#FFF0F0F0"
-                        Click="BtnCalculator_Click"/>
-                <Button x:Name="BtnCurrencyConverter"
-                        Content="匯率轉換"
+                        Command="{Binding ShowCalculatorCommand}"/>
+                <Button Content="匯率轉換"
                         FontFamily="Microsoft JhengHei UI"
                         FontSize="16"
-                        HorizontalContentAlignment="Left"
-                        Padding="20,0,0,0"
-                        Margin="0,10,0,0"
+                        Background="{Binding CurrencyBtnBg}"
+                        HorizontalAlignment="Stretch"
+                        Margin="2"
                         Height="64"
                         IsEnabled="False"
-                        Click="BtnCurrencyConverter_Click"/>
-                <Button x:Name="BtnUnitConverter"
-                        Content="單位換算"
+                        Command="{Binding ShowCurrencyCommand}"/>
+                <Button Content="單位換算"
                         FontFamily="Microsoft JhengHei UI"
                         FontSize="16"
-                        HorizontalContentAlignment="Left"
-                        Padding="20,0,0,0"
-                        Margin="0,10,0,0"
+                        Background="{Binding UnitBtnBg}"
+                        HorizontalAlignment="Stretch"
+                        Margin="2"
                         Height="64"
                         IsEnabled="False"
-                        Click="BtnUnitConverter_Click"/>
+                        Command="{Binding ShowUnitCommand}"/>
             </StackPanel>
         </Grid>
-
         <!-- 主選單按鈕 -->
-        <Button x:Name="BtnMenu"
-                Content="☰"
+        <Button Content="☰"
                 FontSize="24"
                 Width="59"
                 Height="55"
@@ -74,6 +63,6 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Margin="10,10,0,0"
-                Click="BtnMenu_Click"/>
+                Command="{Binding ToggleMenuCommand}"/>
     </Grid>
 </Window>
